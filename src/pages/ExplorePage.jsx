@@ -3,6 +3,7 @@ import { ALL_CATEGORIES_LABEL } from "@/data/categories"
 import { CI_ORANGE } from "@/data/constants"
 import { useTheme } from "@/context/ThemeContext"
 import { getQuotes } from "@/services/quoteService"
+import Loader from "@/components/ui/Loader"
 import SectionTitle from "@/components/ui/SectionTitle"
 import CategoryPills from "@/components/ui/CategoryPills"
 
@@ -60,15 +61,7 @@ export default function ExplorePage({ onToggleFavorite, isFavorite }) {
         </div>
 
         {loading ? (
-          <div
-            className="text-center py-12"
-            style={{
-              color: textSecondary,
-              fontFamily: "'DM Sans', sans-serif",
-            }}
-          >
-            Chargement des citations...
-          </div>
+          <Loader message="Chargement des citations..." />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4 sm:gap-5">
             {filteredQuotes.map((quote, i) => (

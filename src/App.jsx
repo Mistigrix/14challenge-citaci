@@ -12,6 +12,7 @@ import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
 import GradientOrbs from "@/components/layout/GradientOrbs"
 
+import Loader from "@/components/ui/Loader"
 import HomePage from "@/pages/HomePage"
 import ExplorePage from "@/pages/ExplorePage"
 import FavoritesPage from "@/pages/FavoritesPage"
@@ -29,6 +30,7 @@ export default function App() {
     generateNewQuote,
     changeCategory,
     totalQuotes,
+    loading,
   } = useQuotes()
 
   const { favorites, toggleFavorite, isFavorite } = useFavorites()
@@ -79,7 +81,9 @@ export default function App() {
       {/* Spacer pour compenser la navbar fixée */}
       <div className="h-14 sm:h-16" />
 
-      {page === "home" && (
+      {loading && <Loader message="Chargement des citations..." />}
+
+      {!loading && page === "home" && (
         <HomePage
           currentQuote={currentQuote}
           selectedCategory={selectedCategory}
@@ -105,20 +109,20 @@ export default function App() {
           exported={exported}
         />
       )}
-      {page === "explore" && (
+      {!loading && page === "explore" && (
         <ExplorePage
           onToggleFavorite={toggleFavorite}
           isFavorite={isFavorite}
         />
       )}
-      {page === "favorites" && (
+      {!loading && page === "favorites" && (
         <FavoritesPage
           favorites={favorites}
           onToggleFavorite={toggleFavorite}
           onNavigate={setPage}
         />
       )}
-      {page === "about" && <AboutPage />}
+      {!loading && page === "about" && <AboutPage />}
 
       <Footer />
     </div>
